@@ -28,7 +28,7 @@ router
 
 // ====== ADD REACTION TO THOUGHT ==========
 
-// /api/thougts/:thoughtId/reactions
+// /api/thoughts/:thoughtId/reactions
 router
   .route('/:thoughtId/reactions')
   .post(addReaction);
