@@ -28,7 +28,7 @@ connection.once('open', async () => {
   for (let i = 0; i < 5; i++) {
     const username = getRandomUsername();
 
-    students.push({
+    users.push({
       username,
     });
   }
