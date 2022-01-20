@@ -124,7 +124,8 @@ const getRandomThoughts = (int) => {
   const results = [];
   for (let i = 0; i < int; i++) {
     results.push({
-      thoughtText: getRandomArrItem(thoughts)
+      thoughtText: getRandomArrItem(thoughts),
+      reactions: [getRandomArrItem(reactions)]
     });
   }
   return results;

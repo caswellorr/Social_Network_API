@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+// ======== IMPORTED USER CONTROLLERS ============
+
 const {
   getUsers,
   getSingleUser,
@@ -26,12 +28,14 @@ router
   .delete(deleteUser);
 
 
-// ========== ADD / REMOVE FRIENDS ===========
+// ========== ADD FRIENDS ===========
 
 // /api/users/:userId/friends
 router
   .route('/:userId/friends')
   .post(addFriend);
+
+// ========== REMOVE FRIEND ===========
 
 // /api/users/:userId/friends/:friendId
 router

@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+// ======== IMPORTED THOUGHT CONTROLLERS ============
+
 const {
   getThoughts,
   getSingleThought,

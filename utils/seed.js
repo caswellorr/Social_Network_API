@@ -34,7 +34,12 @@ connection.once('open', async () => {
   }
 
   // Add thoughts to the collection and await the results
-  await Thought.collection.insertMany(thoughts);
+  await Thought.collection.insertOne({
+    thoughtText: 'Yennefer is the most beautiful witch in the land',
+    createdAt: Date.now,
+    username: 'geraltOfRivia',
+    reactions: [...reactions]
+  });
 
   // Add thoughts to the collection and await the results
   await User.collection.insertOne({
