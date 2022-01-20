@@ -1,3 +1,0 @@
-addFriend
-
-deleteFriend

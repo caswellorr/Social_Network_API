@@ -1,23 +1,43 @@
 const router = require('express').Router();
+
 const {
-  getStudents,
-  getSingleStudent,
-  createStudent,
-  deleteStudent,
-  addAssignment,
-  removeAssignment,
+  getThoughts,
+  getSingleThought,
+  createThought,
+  deleteThought,
+  addReaction,
+  removeReaction,
 } = require('../../controllers/thoughtController');
 
-// /api/students
-router.route('/').get(getStudents).post(createStudent);
 
-// /api/students/:studentId
-router.route('/:studentId').get(getSingleStudent).delete(deleteStudent);
+// ======= THOUGHT ROUTES ========= 
 
-// /api/students/:studentId/assignments
-router.route('/:studentId/assignments').post(addAssignment);
+// /api/thoughts
+router
+  .route('/')
+  .get(getThoughts)
+  .post(createThought);
 
-// /api/students/:studentId/assignments/:assignmentId
-router.route('/:studentId/assignments/:assignmentId').delete(removeAssignment);
+// /api/thoughts/:thoughtId
+router
+  .route('/:thoughtId')
+  .get(getSingleThought)
+  .delete(deleteThought);
+
+// ====== ADD REACTION TO THOUGHT ==========
+
+// /api/thougts/:thoughtId/reactions
+router
+  .route('/:thoughtId/reactions')
+  .post(addReaction);
+
+// ====== REMOVE REACTION FROM THOUGHT ==========
+
+// /api/thoughts/:thoughtId/reactions/:reactionId
+router
+  .route('/:thoughtId/reactions/:reactionId')
+  .delete(removeReaction);
+
+
 
 module.exports = router;

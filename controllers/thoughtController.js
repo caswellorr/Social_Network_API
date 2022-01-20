@@ -2,52 +2,52 @@ const { User, Thought } = require('../models');
 
 module.exports = {
 
-  // Get all Thoughts
+  // ======= GET ALL THOUGHTS =======
   getThoughts(req, res) {
     Thought.find()
     .then((thoughts) => res.json(thoughts))
     .catch((err) => res.status(500).json(err));
       
   },
-  // Get a single thought
+
+  // ======= GET A SINGLE THOUGHT ==========
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
       .then(async (thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
-          : res.json({
-              thought,
-              grade: await grade(req.params.thoughtId),
-            })
+          : res.json({thought})
       )
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
   },
-  // create a new Thought
+
+  // ======= CREATE A THOUGHT =======
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
-  // Delete a Thought and remove them from the course
+
+  // ===== DELETE THOUGHT AND REMOVE FROM USER =======
   deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No such thought exists' })
-          : Course.findOneAndUpdate(
+          : User.findOneAndUpdate(
               { thoughts: req.params.thoughtId },
               { $pull: { thoughts: req.params.thoughtId } },
               { new: true }
             )
       )
-      .then((course) =>
-        !course
+      .then((user) =>
+        !user
           ? res.status(404).json({
-              message: 'thought deleted, but no courses found',
+              message: 'thought deleted, but no users found',
             })
           : res.json({ message: 'thought successfully deleted' })
       )
@@ -57,37 +57,38 @@ module.exports = {
       });
   },
 
-  // Add a reaction to a thought
-  addAssignment(req, res) {
-    console.log('You are adding an assignment');
+  // ====== ADD REACTION TO THOUGHT ======
+  addReaction(req, res) {
+    console.log('You are adding a reaction');
     console.log(req.body);
-    Student.findOneAndUpdate(
-      { _id: req.params.studentId },
-      { $addToSet: { assignments: req.body } },
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
       { runValidators: true, new: true }
     )
-      .then((student) =>
-        !student
+      .then((thought) =>
+        !thought
           ? res
               .status(404)
-              .json({ message: 'No student found with that ID :(' })
-          : res.json(student)
+              .json({ message: 'No thought found with that ID :(' })
+          : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Remove assignment from a student
-  removeAssignment(req, res) {
-    Student.findOneAndUpdate(
-      { _id: req.params.studentId },
-      { $pull: { assignment: { assignmentId: req.params.assignmentId } } },
+  
+  // ===== REMOVE REACTION FROM THOUGHT ======
+  removeReaction(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reaction: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
-      .then((student) =>
-        !student
+      .then((thought) =>
+        !thought
           ? res
               .status(404)
-              .json({ message: 'No student found with that ID :(' })
-          : res.json(student)
+              .json({ message: 'No thought found with that ID :(' })
+          : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
   },
