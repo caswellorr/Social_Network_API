@@ -3,7 +3,7 @@ const { User, Thought } = require('../models');
 module.exports = {
   // Get all Users
   getUsers(req, res) {
-    Course.find()
+    User.find()
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
@@ -47,9 +47,48 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : Student.deleteMany({ _id: { $in: user.students } })
+          : Thought.deleteMany({ _id: { $in: user.thoughts } })
       )
-      .then(() => res.json({ message: 'user and students deleted!' }))
+      .then(() => res.json({ message: 'user and thoughts deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
+
+  // Add a Friend
+  addFriend(req, res) {
+    console.log('You have a new friend ');
+    console.log(req.body);
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { users: req.body } },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !student
+          ? res
+            .status(404)
+            .json({ message: 'No student found with that ID :(' })
+          : res.json(student)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+
+  // Remove a Friend
+  removeFriend(req, res) {
+    console.log('You have unfriended your "friend"');
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { user: { userId: req.params.userId } } },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res
+              .status(404)
+              .json({ message: 'No user found with that ID :(' })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+
 };
+
