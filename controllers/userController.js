@@ -6,7 +6,10 @@ module.exports = {
   getUsers(req, res) {
     User.find()
       .then((users) => res.json(users))
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err)
+      });
   },
   // ========== GET A USER ==============
   getSingleUser(req, res) {
@@ -57,18 +60,21 @@ module.exports = {
   // ========= ADD A FRIEND ==========
   addFriend(req, res) {
     console.log('You have a new friend ');
-    console.log(req.body);
+    console.log(req.params);
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { users: req.body } },
+      { $addToSet: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
-      .then((user) =>
+      .then((user) => {
+
         !user
           ? res
             .status(404)
             .json({ message: 'No user found with that ID :(' })
           : res.json(user)
+      
+      }
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -78,7 +84,7 @@ module.exports = {
     console.log('You have unfriended your "friend"');
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { user: { userId: req.params.userId } } },
+      { $pull: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
       .then((user) =>

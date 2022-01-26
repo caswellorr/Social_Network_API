@@ -28,8 +28,20 @@ module.exports = {
   // ======= CREATE A THOUGHT =======
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
-      .catch((err) => res.status(500).json(err));
+      .then((thought) => {
+          User.findOneAndUpdate(
+                  { users: req.params.userId },
+                  { $addToSet: {thoughts: req.params.thoughtId} },
+                  { new: true }
+                );
+          res.json(thought);
+        }
+
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err)}
+        );
   },
 
   // ===== DELETE THOUGHT AND REMOVE FROM USER =======
@@ -80,7 +92,7 @@ module.exports = {
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reaction: { reactionId: req.params.reactionId } } },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
       .then((thought) =>

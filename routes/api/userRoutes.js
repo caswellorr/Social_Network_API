@@ -28,11 +28,11 @@ router
   .delete(deleteUser);
 
 
-// ========== ADD FRIENDS ===========
+// ========== ADD A FRIEND ===========
 
-// /api/users/:userId/friends
+// /api/users/:userId/friends/:friendId
 router
-  .route('/:userId/friends')
+  .route('/:userId/friends/:friendId')
   .post(addFriend);
 
 // ========== REMOVE FRIEND ===========
