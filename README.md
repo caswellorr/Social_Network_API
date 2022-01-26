@@ -1,48 +1,32 @@
-# Unit 18 Mini-Project: Student Statistics Back-End
+# 🏗️ Social Network API
 
-In this activity, you will start with an existing codebase for a mostly complete application. You will be adding aggregate methods to the `Student` controller to show a student's overall grade and the number of students. Finally, you will spend the remaining time deploying the application using MongoDB Atlas and Heroku.
+Link : https://nameless-castle-62595.herokuapp.com/
 
-## Instructions
+## Description 📖
 
-The completed application should meet the following criteria:
+**Social Network API** is an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.
 
-* As a user, I want to be able to view all the students and get a total of the number of students enrolled.
+## Features 📝
 
-* As a user, I want to be able to view a specific student's overall grade in the class using MongoDB operators and their score on each assignment.
+The application uses Express.js for routing, a MongoDB database, and the Mongoose ODM.
 
-* As a user, I want to be able to execute create, read, update, and delete operations on `courses`, `students`, and `assignments`.
+## Screenshots 📷 :
 
-### Specifications
+* The following shows a GET route to return all users being tested in Insomnia:
 
-The completed application should meet the following specifications:
+  ![alt text](./Assets/screenshot1.png)
+  
+* The following shows a PUT route to update a user being tested in Insomnia:
 
-* The application must make use of a MongoDB database, the Mongoose ODM, and Express.js.
+  ![alt text](./Assets/screenshot2.png)
 
-* The database must be seeded with sample data.
+* The following shows a DELETE route to delete a user and their thoughts being tested in Insomnia:
 
-* The `Student` controller should have a `headCount` aggregate function to get the total number of students by making use of MongoDB aggregate operators.
+  ![alt text](./Assets/screenshot3.png)
+  
 
-* The `Student` controller should have a `grade` aggregate function that returns a single student and also the student's overall grade using MongoDB aggregate operators.
-    
-* The project will require research of MongoDB operators such as `$addToSet`, `$unwind`, `$group`, and `$avg`.
+## Takeaways 💡
 
-* The endpoints `api/students/<student id>` and `api/students/` should be tested using Insomnia to ensure that the aggregate functions return the student's overall grade and headcount respectively.
-
-* This back-end application should be deployed using Heroku and MongoDB Atlas. Refer to the resources below for further instructions.
-
-## 💡 Hints
-
-* Be sure to run `npm run seed` to seed your database before testing with Insomnia.
-
-* Run `npm run dev` to have the server automatically restart whenever changes are saved.
-
-* How can we use the `$avg` [MongoDB operator](https://docs.mongodb.com/manual/reference/operator/aggregation/avg/) to calculate the overall grade for a student?
-
-* How can we use the information from [The Full-Stack Blog](https://coding-boot-camp.github.io/full-stack/mongodb/deploy-with-heroku-and-mongodb-atlas) to help deploy the mini-project?
-
-## 🏆 Bonus
-
-* What is the difference between Mongoose and MongoDB? What are the advantages and disadvantages of both?
-
----
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+I learned how to configure a working Express.js API to interact with a Mongo database using Mongoose.
+----
+© 2021 Caswell Orr. Confidential and Proprietary. All Rights Reserved.
