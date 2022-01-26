@@ -6,6 +6,7 @@ const {
   getThoughts,
   getSingleThought,
   createThought,
+  updateThought,
   deleteThought,
   addReaction,
   removeReaction,
@@ -24,6 +25,7 @@ router
 router
   .route('/:thoughtId')
   .get(getSingleThought)
+  .put(updateThought)
   .delete(deleteThought);
 
 // ====== ADD REACTION TO THOUGHT ==========

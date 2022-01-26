@@ -28,5 +28,6 @@ The application uses Express.js for routing, a MongoDB database, and the Mongoos
 ## Takeaways 💡
 
 I learned how to configure a working Express.js API to interact with a Mongo database using Mongoose.
+
 ----
 © 2021 Caswell Orr. Confidential and Proprietary. All Rights Reserved.

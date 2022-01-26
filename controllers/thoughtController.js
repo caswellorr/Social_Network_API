@@ -30,7 +30,7 @@ module.exports = {
     Thought.create(req.body)
       .then((thought) => {
           User.findOneAndUpdate(
-                  { users: req.params.userId },
+                  { thought: req.params.thoughtId },
                   { $addToSet: {thoughts: req.params.thoughtId} },
                   { new: true }
                 );
@@ -42,6 +42,20 @@ module.exports = {
         console.log(err);
         res.status(500).json(err)}
         );
+  },
+  // ========= UPDATE A THOUGHT =========
+  updateThought(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: 'No thought with this id!' })
+          : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
   },
 
   // ===== DELETE THOUGHT AND REMOVE FROM USER =======
